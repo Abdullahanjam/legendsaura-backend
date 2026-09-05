@@ -19,6 +19,10 @@ const PORT = process.env.PORT || 5000;
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
+// Server start hote hi admin account + sample data khud ban jaye (agar pehle se nahi hai).
+// Yeh un hosting plans ke liye zaroori hai jahan Shell/SSH access nahi milta.
+require("./utils/seed");
+
 app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
