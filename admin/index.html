@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login — Legendsaura Admin</title>
+<link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<div class="login-screen">
+  <div class="login-card">
+    <h1 class="brand-wordmark">LEGEND<span>SAURA</span></h1>
+    <p class="login-sub">Admin dashboard me login karein</p>
+
+    <div id="alertBox"></div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-block" id="loginBtn">Login</button>
+    </form>
+
+    <p class="hint">Default credentials backend ki .env file me set kiye gaye hain.</p>
+  </div>
+</div>
+
+<script>
+  const API_BASE = window.location.origin + "/api";
+
+  // Agar pehle se valid token hai to seedhe dashboard par bhej dein
+  if (localStorage.getItem("ls_token")) {
+    window.location.href = "dashboard.html";
+  }
+
+  const form = document.getElementById("loginForm");
+  const alertBox = document.getElementById("alertBox");
+  const loginBtn = document.getElementById("loginBtn");
+
+  function showAlert(message, type = "error") {
+    alertBox.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    alertBox.innerHTML = "";
+    loginBtn.disabled = true;
+    loginBtn.textContent = "Logging in...";
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showAlert(data.error || "Login nahi ho saka.");
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Login";
+        return;
+      }
+
+      localStorage.setItem("ls_token", data.token);
+      localStorage.setItem("ls_admin", JSON.stringify(data.admin));
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      showAlert("Server se connect nahi ho saka. Kya backend chal raha hai?");
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Login";
+    }
+  });
+</script>
+
+</body>
+</html>

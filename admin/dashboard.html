@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — Legendsaura Admin</title>
+<link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand-wordmark">LEGEND<span>SAURA</span></div>
+
+    <nav>
+      <div class="nav-item active" data-view="overview">Overview</div>
+      <div class="nav-item" data-view="products">Products</div>
+      <div class="nav-item" data-view="categories">Categories</div>
+      <div class="nav-item" data-view="orders">Orders</div>
+      <div class="nav-item" data-view="content">Site Content</div>
+      <div class="nav-item" data-view="account">Account</div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-name" id="adminName">—</div>
+      <button class="btn btn-ghost btn-block" id="logoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- OVERVIEW -->
+    <section class="view active" id="view-overview">
+      <div class="page-header">
+        <div>
+          <h1>Overview</h1>
+          <p>Aapki store ka ek nazar me summary</p>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="statsGrid">
+        <!-- JS se fill hoga -->
+      </div>
+
+      <div class="panel">
+        <h2>Recent Orders</h2>
+        <div id="recentOrdersTable"><p class="empty-state">Loading...</p></div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="view" id="view-products">
+      <div class="page-header">
+        <div>
+          <h1>Products</h1>
+          <p>Apni store ke products add, edit ya remove karein</p>
+        </div>
+        <button class="btn" id="addProductBtn">+ Naya Product</button>
+      </div>
+
+      <div class="panel">
+        <div class="toolbar">
+          <input type="text" id="productSearch" placeholder="Product search karein..." />
+        </div>
+        <div id="productsTable"><p class="empty-state">Loading...</p></div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="view" id="view-categories">
+      <div class="page-header">
+        <div>
+          <h1>Categories</h1>
+          <p>Products ko organize karne ke liye categories</p>
+        </div>
+        <button class="btn" id="addCategoryBtn">+ Nayi Category</button>
+      </div>
+      <div class="panel">
+        <div id="categoriesTable"><p class="empty-state">Loading...</p></div>
+      </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section class="view" id="view-orders">
+      <div class="page-header">
+        <div>
+          <h1>Orders</h1>
+          <p>Customer orders dekhein aur status update karein</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div id="ordersTable"><p class="empty-state">Loading...</p></div>
+      </div>
+    </section>
+
+    <!-- SITE CONTENT -->
+    <section class="view" id="view-content">
+      <div class="page-header">
+        <div>
+          <h1>Site Content</h1>
+          <p>Website ka homepage, about aur contact info yahan se change karein</p>
+        </div>
+      </div>
+
+      <form id="settingsForm">
+        <div class="grid-2">
+          <div class="panel">
+            <h2>Homepage Hero</h2>
+            <div class="field">
+              <label>Site Name</label>
+              <input type="text" name="siteName" />
+            </div>
+            <div class="field">
+              <label>Hero Title (bara heading)</label>
+              <input type="text" name="heroTitle" />
+            </div>
+            <div class="field">
+              <label>Hero Subtitle</label>
+              <textarea name="heroSubtitle" rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label>Hero Image</label>
+              <input type="file" id="heroImageInput" accept="image/*" />
+              <input type="hidden" name="heroImage" id="heroImageUrl" />
+              <img id="heroImagePreview" class="image-preview" />
+            </div>
+            <div class="field">
+              <label>Announcement Bar (top strip text)</label>
+              <input type="text" name="announcementBar" />
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>About Section</h2>
+            <div class="field">
+              <label>About Title</label>
+              <input type="text" name="aboutTitle" />
+            </div>
+            <div class="field">
+              <label>About Text</label>
+              <textarea name="aboutText" rows="5"></textarea>
+            </div>
+            <div class="field">
+              <label>Logo</label>
+              <input type="file" id="logoInput" accept="image/*" />
+              <input type="hidden" name="logoUrl" id="logoUrl" />
+              <img id="logoPreview" class="image-preview" />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <h2>Contact Info</h2>
+            <div class="field">
+              <label>Email</label>
+              <input type="email" name="contactEmail" />
+            </div>
+            <div class="field">
+              <label>Phone</label>
+              <input type="text" name="contactPhone" />
+            </div>
+            <div class="field">
+              <label>WhatsApp Number</label>
+              <input type="text" name="whatsapp" placeholder="923000000000" />
+            </div>
+            <div class="field">
+              <label>Address</label>
+              <input type="text" name="address" />
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Social Links &amp; Store</h2>
+            <div class="field">
+              <label>Instagram URL</label>
+              <input type="text" name="instagram" />
+            </div>
+            <div class="field">
+              <label>Facebook URL</label>
+              <input type="text" name="facebook" />
+            </div>
+            <div class="field">
+              <label>TikTok URL</label>
+              <input type="text" name="tiktok" />
+            </div>
+            <div class="field">
+              <label>Currency</label>
+              <input type="text" name="currency" />
+            </div>
+            <div class="field">
+              <label>Shipping Fee</label>
+              <input type="number" name="shippingFee" />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Save Changes</button>
+      </form>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section class="view" id="view-account">
+      <div class="page-header">
+        <div>
+          <h1>Account</h1>
+          <p>Apna login password change karein</p>
+        </div>
+      </div>
+      <div class="panel" style="max-width: 420px;">
+        <h2>Change Password</h2>
+        <div id="passwordAlert"></div>
+        <form id="passwordForm">
+          <div class="field">
+            <label>Current Password</label>
+            <input type="password" name="currentPassword" required />
+          </div>
+          <div class="field">
+            <label>New Password</label>
+            <input type="password" name="newPassword" required minlength="6" />
+          </div>
+          <button type="submit" class="btn">Update Password</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Product Modal -->
+<div class="modal-overlay" id="productModalOverlay">
+  <div class="modal">
+    <h2 id="productModalTitle">Naya Product</h2>
+    <form id="productForm">
+      <input type="hidden" id="productId" />
+      <div class="field">
+        <label>Product Name</label>
+        <input type="text" id="productName" required />
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea id="productDescription" rows="3"></textarea>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Price (Rs.)</label>
+          <input type="number" id="productPrice" required min="0" />
+        </div>
+        <div class="field">
+          <label>Compare-at Price (optional)</label>
+          <input type="number" id="productCompareAtPrice" min="0" />
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Category</label>
+          <select id="productCategory"></select>
+        </div>
+        <div class="field">
+          <label>Stock Quantity</label>
+          <input type="number" id="productStock" min="0" value="0" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Product Image</label>
+        <input type="file" id="productImageInput" accept="image/*" />
+        <input type="hidden" id="productImageUrl" />
+        <img id="productImagePreview" class="image-preview" />
+      </div>
+      <div class="field checkbox-field">
+        <input type="checkbox" id="productFeatured" />
+        <label for="productFeatured" style="margin:0;">Homepage par featured dikhayein</label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeProductModal()">Cancel</button>
+        <button type="submit" class="btn" id="productSaveBtn">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Category Modal -->
+<div class="modal-overlay" id="categoryModalOverlay">
+  <div class="modal">
+    <h2 id="categoryModalTitle">Nayi Category</h2>
+    <form id="categoryForm">
+      <input type="hidden" id="categoryId" />
+      <div class="field">
+        <label>Category Name</label>
+        <input type="text" id="categoryName" required />
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeCategoryModal()">Cancel</button>
+        <button type="submit" class="btn">Save Category</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
